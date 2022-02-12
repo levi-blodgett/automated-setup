@@ -1,0 +1,20 @@
+---
+- name: Copy wallpaper file
+  copy: src=$HOME/ansible/wallpaper.jpg dest=/home/$USER/.wallpaper.jpg owner=$USER group=$USER mode=600
+  become: no
+
+- name: Set GNOME Wallpaper
+  become: no
+  dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/$USER/.wallpaper.jpg'"
+
+- name: Copy lockscreen file
+  copy: src=$HOME/ansible/lockscreen.jpg dest=/home/$USER/.lockscreen.jpg owner=$USER group=$USER mode=600
+  become: no
+
+- name: Set lock screen background
+  dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/$USER/.lockscreen.jpg'"
+  become: no
+
+- name: Set GTK theme
+  dconf: key="/org/gnome/desktop/interface/gtk-theme" value="'Arc Dark'"
+  become: no

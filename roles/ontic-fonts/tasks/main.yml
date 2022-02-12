@@ -1,0 +1,28 @@
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
+
+---
+
+- name: 'Fonts | Include OS-specific variables.'
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_distribution }}.yml'
+    - '{{ ansible_os_family }}.yml'
+  tags:
+    - 'fonts'
+    - 'fonts-package'
+    - 'fonts-configure'
+    - 'package'
+    - 'configure'
+
+- import_tasks: 'package.yml'
+  tags:
+    - 'fonts'
+    - 'fonts-package'
+    - 'package'
+
+- import_tasks: 'configure.yml'
+  tags:
+    - 'fonts'
+    - 'fonts-configure'
+    - 'configure'

@@ -1,0 +1,29 @@
+---
+- name: check if servers are already added
+  lineinfile:
+    backup: true
+    path: /etc/resolv.conf
+    regexp: '^nameserver 8.8.8.8'
+    state: absent
+  check_mode: true
+  register: dns_servers_check
+  changed_when: false
+ 
+- name: insert first nameserver if missing
+  lineinfile:
+    path: /etc/resolv.conf
+    regexp: '^nameserver'
+    insertafter: '^#nameserver'
+    line: 'nameserver 8.8.8.8'
+  when: dns_servers_check.found == 0
+
+- name: insert second nameserver if missing
+  lineinfile:
+    path: /etc/resolv.conf
+    regexp: '^nameserver'
+    insertafter: '^#nameserver'
+    line: 'nameserver 8.8.4.4'
+  when: dns_servers_check.found == 0
+  notify:
+    - restart resolvconf
+    - restart resolved

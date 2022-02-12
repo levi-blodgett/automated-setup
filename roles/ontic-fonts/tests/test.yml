@@ -1,0 +1,18 @@
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
+
+---
+
+- hosts: 'localhost'
+  vars:
+    fonts_shared:
+      - type: 'truetype'
+        src: '{{ role_path }}/tests/fonts/Fabulous.ttf'
+        dest: 'dafont/Fabulous.ttf'
+    fonts_user:
+      - name: 'root'
+        type: 'opentype'
+        src: '{{ role_path }}/tests/fonts/Aulyars.otf'
+        dest: 'dafont/Aulyars.otf'
+  roles:
+    - { role: 'role_under_test' }

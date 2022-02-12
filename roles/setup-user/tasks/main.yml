@@ -1,0 +1,4 @@
+---
+- name: Make user a sudoer
+  shell: "usermod -aG sudo $USER"
+  become: yes

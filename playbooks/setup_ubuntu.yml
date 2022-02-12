@@ -1,0 +1,26 @@
+---
+  - name: Setup Ubuntu
+    hosts: localhost
+    become: yes
+    become_user: root
+
+    roles:
+      - role: add-repositories
+      - role: update
+      - role: install-packages
+      - role: update
+      - role: setup-dns
+      - role: ontic-fonts
+      - role: setup-sublime
+        sublime_package_control: true
+      - role: setup-google-drive
+      - role: setup-tmux
+        vars:
+          tmux_config:
+            global:
+              - comment: "Add sensible to list of TPM plugins"
+                commands:
+                  - "set": "-g @plugin 'tmux-plugins/tpm'"
+                    "set-option": "-g @plugin 'tmux-plugins/tmux-sensible'"
+      - role: fix-ubuntu-suspend
+      - role: notify-reboot

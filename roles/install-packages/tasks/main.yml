@@ -1,0 +1,89 @@
+---
+- name: apt install packages
+  apt:
+    pkg:
+    # for almost everything
+    - python
+    # for replacing wallpaper later
+    - python-psutil
+    # resource monitoring program
+    - htop
+    # terminal text editor
+    - vim
+    # terminal tool for locating files in filesystem via cache
+    - mlocate
+    # Virtual Machine manager
+    - virt-manager
+    # Disk Partitioner
+    - gparted
+    # Linux version of Microsoft Office Suite
+    - libreoffice
+    # libreoffice gnome dependencies
+    - libreoffice-gnome
+    # Tweaks for gnome desktop GUI
+    # TODO: next steps for changing the settings automagically
+    - gnome-tweak-tool
+    # Video game manager
+    - steam
+    # cleanup/optimization
+    # TODO: run bleachbit automagically
+    - bleachbit
+    # video editor
+    - kdenlive
+    # PM for getting rid of bloat/old packages
+    - synaptic
+    # kernel installer/updater
+    - mainline
+    # screenshot tool
+    - flameshot
+    # gnome customization
+    # TODO: next steps for changing the settings automagically
+    - dconf-editor
+    # require for changed login splash screen
+    # TODO: next steps for changing login splash screen
+    - libglib2.0-dev-bin
+    # tree disk usage tool
+    - k4dirstat
+    # links google drive to filesystem
+    - google-drive-ocamlfuse
+    # dependencies for google-drive-ocamlfuse
+    - ocaml-dune
+    - ocaml-nox
+    # sublime dependency
+    - apt-transport-https
+    # sublime has it's own role
+    #- sublime-text
+    # tmux has it's own role
+    #- tmux
+    # unattended-upgrades for crontab, might not need later if this is idempotent
+    - unattended-upgrades
+    # zip package for .zip files
+    - zip
+    # unzip package for .zip files
+    - unzip
+    # paint-like program
+    - pinta
+    # photoshop-like program
+    - gimp
+    # preloads apps, keeping them in memory
+    - preload
+    # improve laptop battery
+    - tlp 
+    - tlp-rdw
+    # enable media to work in local filesystem
+    - ubuntu-restricted-extras
+    # networking tools
+    - net-tools
+    # for setting dns servers later
+    - resolvconf
+    # Install new desktop theme
+    - arc-theme
+
+- name: Install packages via snap
+  snap:
+    name: 
+      - glimpse-editor
+      - vlc
+
+- name: Add auto-updates to root cron
+  shell: "(crontab -u $(whoami) -l; echo '45 21 * * * root apt-get update > /home/root/updates.log' ) | crontab -u $(whoami) -"

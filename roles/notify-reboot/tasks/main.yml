@@ -1,0 +1,4 @@
+---
+- name: Notify user to manually reboot
+  debug:
+    msg: "Reboot now."

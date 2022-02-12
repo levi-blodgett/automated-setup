@@ -1,0 +1,36 @@
+---
+- name: Add Multiverse repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu focal multiverse
+    state: present
+    update_cache: True
+
+- name: Add Universe repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu focal universe
+    state: present
+    update_cache: True
+
+- name: Add Mainline repository into sources list
+  ansible.builtin.apt_repository:
+    repo: 'ppa:cappelikan/ppa'
+    state: present
+    update_cache: True
+
+- name: Add Google Drive repository into sources list
+  ansible.builtin.apt_repository:
+    repo: 'ppa:alessandro-strada/ppa'
+    state: present
+    update_cache: True
+
+- name: Add Kdenlive repository into sources list
+  ansible.builtin.apt_repository:
+    repo: 'ppa:kdenlive/kdenlive-stable'
+    state: present
+    update_cache: True
+
+- name: Add Pinta repository into sources list
+  ansible.builtin.apt_repository:
+    repo: 'ppa:pinta-maintainers/pinta-stable'
+    state: present
+    update_cache: True

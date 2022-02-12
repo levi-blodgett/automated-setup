@@ -1,0 +1,64 @@
+---
+- name: Copy wallpaper file
+  copy: src=files/wallpaper.jpg dest=/home/{{ username }}/.wallpaper.jpg
+  become: no
+
+- name: Set GNOME Wallpaper
+  dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/{{ username }}/.wallpaper.jpg'"
+  become: no
+
+- name: Copy lockscreen file
+  copy: src=files/lockscreen.jpg dest=/home/{{ username }}/.lockscreen.jpg
+  become: no
+
+- name: Set lock screen background
+  dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/{{ username }}/.lockscreen.jpg'"
+  become: no
+
+- name: Set login screen background
+  dconf: key="/com/ubuntu/login-screen/background-picture-uri" value="'file:///home/{{ username }}/.lockscreen.jpg'"
+  become: no
+ 
+- name: Set login screen background color
+  dconf: key="/com/ubuntu/login-screen/background-color" value="'black'"
+  become: no
+
+- name: Set GTK theme
+  dconf: key="/org/gnome/desktop/interface/gtk-theme" value="'Arc-Dark'"
+  become: no
+
+- name: Set Cursor theme
+  dconf: key="/org/gnome/desktop/interface/cursor-theme" value="'Arc-Dark'"
+  become: no
+
+- name: Set GTK color scheme
+  dconf: key="/org/gnome/desktop/interface/gtk-color-scheme" value="'Arc-Dark'"
+  become: no
+
+- name: Set icon theme
+  dconf: key="/org/gnome/desktop/interface/icon-theme" value="'Arc'"
+  become: no
+
+- name: Set sound theme
+  dconf: key="/org/gnome/desktop/sound/theme-name" value="'Arc-Dark'"
+  become: no
+
+- name: Hide trash icon
+  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-trash" value="'false'"
+  become: no
+
+- name: Hide home icon
+  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-home" value="'false'"
+  become: no
+
+- name: Isolate workspaces
+  dconf: key="/org/gnome/shell/extensions/dask-to-dock/isolate-workspaces" value="'true'"
+  become: no
+ 
+- name: Workspaces apply to all monitors
+  dconf: key="/org/gnome/shell/overrides/workspaces-only-on-primary" value="'false'"
+  become: no
+
+- name: Set Clock to show seconds
+  dconf: key="/org/gnome/desktop/interface/clock-show-seconds" value="'true'"
+  become: no

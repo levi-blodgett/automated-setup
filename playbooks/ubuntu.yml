@@ -17,7 +17,7 @@
       - role: ontic-fonts
       - role: fix-ubuntu-suspend
       - role: setup-dns
-      - role: setup-desktop
+      - role: setup-gnome
       - role: setup-google-drive
       - role: setup-sublime
         sublime_package_control: true

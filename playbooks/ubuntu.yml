@@ -4,16 +4,23 @@
     become: yes
     become_user: root
 
+    vars_prompt:
+      - name: username
+        prompt: What is your username?
+        private: no
+
     roles:
       - role: add-repositories
       - role: update
       - role: install-packages
       - role: update
-      - role: setup-dns
       - role: ontic-fonts
+      - role: fix-ubuntu-suspend
+      - role: setup-dns
+      - role: setup-desktop
+      - role: setup-google-drive
       - role: setup-sublime
         sublime_package_control: true
-      - role: setup-google-drive
       - role: setup-tmux
         vars:
           tmux_config:
@@ -22,5 +29,4 @@
                 commands:
                   - "set": "-g @plugin 'tmux-plugins/tpm'"
                     "set-option": "-g @plugin 'tmux-plugins/tmux-sensible'"
-      - role: fix-ubuntu-suspend
       - role: notify-reboot

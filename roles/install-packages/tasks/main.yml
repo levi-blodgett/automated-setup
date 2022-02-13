@@ -21,12 +21,10 @@
     # libreoffice gnome dependencies
     - libreoffice-gnome
     # Tweaks for gnome desktop GUI
-    # TODO: next steps for changing the settings automagically
     - gnome-tweak-tool
     # Video game manager
     - steam
     # cleanup/optimization
-    # TODO: run bleachbit automagically
     - bleachbit
     # video editor
     - kdenlive
@@ -37,10 +35,8 @@
     # screenshot tool
     - flameshot
     # gnome customization
-    # TODO: next steps for changing the settings automagically
     - dconf-editor
     # require for changed login splash screen
-    # TODO: next steps for changing login splash screen
     - libglib2.0-dev-bin
     # tree disk usage tool
     - k4dirstat

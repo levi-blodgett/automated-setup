@@ -1,0 +1,5 @@
+---
+- name: Clean out older items with autoremove
+  apt:
+    autoremove: yes
+    purge: yes

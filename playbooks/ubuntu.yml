@@ -1,34 +1,34 @@
 ---
-  - name: Setup Ubuntu
-    hosts: localhost
-    become: yes
-    become_user: root
+- name: Setup Ubuntu
+  hosts: localhost
+  become: yes
+  become_user: root
 
-    vars_prompt:
-      - name: username
-        prompt: What is your username?
-        private: no
+  vars_prompt:
+    - name: username
+      prompt: What is your username?
+      private: no
 
-    roles:
-      - role: add-repositories
-      - role: update
-      - role: install-packages
-      - role: update
-      - role: ontic-fonts
-      - role: fix-ubuntu-suspend
-      - role: setup-font
-      - role: setup-dns
-      - role: setup-gnome
-        become: no
-      - role: setup-google-drive
-      - role: setup-sublime
-        sublime_package_control: true
-      - role: setup-tmux
-        vars:
-          tmux_config:
-            global:
-              - comment: "Add sensible to list of TPM plugins"
-                commands:
-                  - "set": "-g @plugin 'tmux-plugins/tpm'"
-                    "set-option": "-g @plugin 'tmux-plugins/tmux-sensible'"
-      - role: notify-reboot
+  roles:
+    - role: add-repositories
+    - role: update
+    - role: install-packages
+    - role: fix-ubuntu-suspend
+    - role: setup-fonts
+    - role: setup-dns
+    - role: setup-gnome
+      become: no
+    - role: setup-google-drive
+    - role: setup-sublime
+      sublime_package_control: true
+    - role: setup-tmux
+      vars:
+        tmux_config:
+          global:
+            - comment: "Add sensible to list of TPM plugins"
+              commands:
+                - "set": "-g @plugin 'tmux-plugins/tpm'"
+                  "set-option": "-g @plugin 'tmux-plugins/tmux-sensible'"
+    - role: update
+    - role: clean
+    - role: notify-reboot

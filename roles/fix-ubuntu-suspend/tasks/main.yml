@@ -2,26 +2,45 @@
 - name: Install drivers
   shell: "ubuntu-drivers autoinstall"
 
-- name: check if splash is configured in the boot command
+- name: Check if first fix is put in
   lineinfile:
     backup: true
     path: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX=".*splash'
+    regexp: '^GRUB_CMDLINE_LINUX="nouveau.modeset=0"'
     state: absent
   check_mode: true
   register: grub_cmdline_check
   changed_when: false
 
-- name: insert splash if missing
+- name: Insert first fix
   lineinfile:
     backrefs: true
     path: /etc/default/grub
     regexp: "^(GRUB_CMDLINE_LINUX=\".*)\"$"
-    line: '\1 splash"'
+    line: '\1nouveau.modeset=0"'
   when: grub_cmdline_check.found == 0
   register: replace
+
+- name: Check if second fix is put in
+  lineinfile:
+    backup: true
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_sleep=nonvs"'
+    state: absent
+  check_mode: true
+  register: grub_cmdline_check_2
+  changed_when: false
+
+- name: Insert second fix
+  lineinfile:
+    backrefs: true
+    path: /etc/default/grub
+    regexp: "^(GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash.*)\"$"
+    line: '\1 acpi_sleep=nonvs"'
+  when: grub_cmdline_check_2.found == 0
+  register: replace_2
 
 - name: Update grub
   shell: "update-grub"
   become: yes
-  when: replace.changed
+  when: replace.changed or replace_2.changed

@@ -4,7 +4,7 @@
     src: "files/wallpaper.jpg"
     dest: "/home/{{ username }}/.wallpaper.jpg"
 
-- name: Set GNOME Wallpaper
+- name: Set Wallpaper
   dconf: 
     key: "/org/gnome/desktop/background/picture-uri" 
     value: "'file:///home/{{ username }}/.wallpaper.jpg'"
@@ -18,6 +18,25 @@
   dconf: 
     key: "/org/gnome/desktop/screensaver/picture-uri" 
     value: "'file:///home/{{ username }}/.lockscreen.jpg'"
+
+- name: Verify profile picture
+  stat:
+    path: "/var/lib/AccountsService/icons/{{ username }}"
+  register: profile_picture
+
+- name: Download profile picture
+  get_url:
+    url: "https://avatars.githubusercontent.com/u/31705508"
+    dest: "/var/lib/AccountsService/icons/{{ username }}"
+  when: not profile_picture.stat.exists
+  become: yes
+
+- name: Set profile picture
+  lineinfile:
+    path: "/var/lib/AccountsService/users/{{ username }}"
+    regexp: '^Icon='
+    line: 'Icon=/var/lib/AccountsService/icons/{{ username }}'
+  become: yes
 
 - name: Download script for changing login background
   get_url: 
@@ -151,9 +170,17 @@
     value: "true"
 
 - name: ignore lid close
-  become: true
   lineinfile:
     path: /etc/systemd/logind.conf
     regexp: '^HandleLidSwitch='
     insertafter: '^#HandleLidSwitch='
     line: 'HandleLidSwitch=ignore'
+  become: yes
+
+- name: Get screen brightness level
+  shell: "cat /sys/class/backlight/intel_backlight/brightness"
+  register: initial_brightness
+
+- name: Set screen brightness level
+  shell: "echo {{ (initial_brightness.stdout|int / 6)|int }} > /sys/class/backlight/intel_backlight/brightness"
+  become: yes

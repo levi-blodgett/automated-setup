@@ -51,9 +51,8 @@
     mode: '0755'
 
 - name: Set login screen background
-  shell: "/home/{{ username }}/Downloads/change-gdm-background {{ role_path }}/files/black.jpg"
+  shell: "/home/{{ username }}/Downloads/change-gdm-background {{ role_path }}/files/lockscreen.jpg"
   become: yes
-  register: login_results
 
 - name: Set GTK Theme
   dconf: 

@@ -1,83 +1,159 @@
 ---
 - name: Copy wallpaper file
-  copy: src=files/wallpaper.jpg dest=/home/{{ username }}/.wallpaper.jpg
-  become: no
+  copy: 
+    src: "files/wallpaper.jpg"
+    dest: "/home/{{ username }}/.wallpaper.jpg"
 
 - name: Set GNOME Wallpaper
-  dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/{{ username }}/.wallpaper.jpg'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/background/picture-uri" 
+    value: "'file:///home/{{ username }}/.wallpaper.jpg'"
 
 - name: Copy lockscreen file
-  copy: src=files/lockscreen.jpg dest=/home/{{ username }}/.lockscreen.jpg
-  become: no
+  copy: 
+    src: "files/lockscreen.jpg"
+    dest: "/home/{{ username }}/.lockscreen.jpg"
 
 - name: Set lock screen background
-  dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/{{ username }}/.lockscreen.jpg'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/screensaver/picture-uri" 
+    value: "'file:///home/{{ username }}/.lockscreen.jpg'"
+
+- name: Download script for changing login background
+  get_url: 
+    url: "https://github.com/thiggy01/change-gdm-background/raw/master/change-gdm-background"
+    dest: "/home/{{ username }}/Downloads/"
+
+- name: Make script executable
+  file:
+    path: "/home/{{ username }}/Downloads/change-gdm-background"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0755'
 
 - name: Set login screen background
-  dconf: key="/com/ubuntu/login-screen/background-picture-uri" value="'file:///home/{{ username }}/.lockscreen.jpg'"
-  become: no
- 
-- name: Set login screen background color
-  dconf: key="/com/ubuntu/login-screen/background-color" value="'black'"
-  become: no
+  shell: "/home/{{ username }}/Downloads/change-gdm-background files/lockscreen.jpg"
+  become: yes
 
 - name: Set GTK Theme
-  dconf: key="/org/gnome/desktop/interface/gtk-theme" value="'Arc-Dark'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Arc-Dark'"
 
 - name: Set Cursor Theme
-  dconf: key="/org/gnome/desktop/interface/cursor-theme" value="'Arc-Dark'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/interface/cursor-theme"
+    value: "'Arc-Dark'"
 
 - name: Set GTK Color Scheme
-  dconf: key="/org/gnome/desktop/interface/gtk-color-scheme" value="'Arc-Dark'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/interface/gtk-color-scheme"
+    value: "'Arc-Dark'"
 
 - name: Set Icon Theme
-  dconf: key="/org/gnome/desktop/interface/icon-theme" value="'Yaru'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'Yaru'"
 
 - name: Set Sound Theme
-  dconf: key="/org/gnome/desktop/sound/theme-name" value="'Arc-Dark'"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/sound/theme-name"
+    value: "'Arc-Dark'"
 
 - name: Hide trash icon
-  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-trash" value="false"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/extensions/desktop-icons/show-trash"
+    value: "false"
 
 - name: Hide home icon
-  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-home" value="false"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/extensions/desktop-icons/show-home"
+    value: "false"
 
 - name: Isolate workspaces
-  dconf: key="/org/gnome/shell/extensions/dask-to-dock/isolate-workspaces" value="true"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/extensions/dask-to-dock/isolate-workspaces"
+    value: "true"
  
 - name: Workspaces apply to all monitors
-  dconf: key="/org/gnome/shell/overrides/workspaces-only-on-primary" value="false"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/overrides/workspaces-only-on-primary"
+    value: "false"
 
 - name: Hide 'Show apps button'
-  dconf: key="/org/gnome/shell/extensions/dash-to-dock/show-show-apps-button" value="false"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-show-apps-button"
+    value: "false"
 
 - name: Center dock
-  dconf: key="/org/gnome/shell/extensions/dash-to-dock/extend-height" value="false"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/extend-height"
+    value: "false"
 
-# TODO: get this shit to work
 - name: Set favorite apps
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop',          'sublime_text.desktop', 'pinta.desktop', 'steam.desktop']"
-  become: no
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'sublime_text.desktop', 'pinta.desktop', 'steam.desktop']"
 
 - name: Hide dock as default
-  dconf: key="/org/gnome/shell/extensions/dash-to-dock/dock-fixed" value="false"
-  become: no
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-fixed"
+    value: "false"
 
 - name: Set Clock to show seconds
-  dconf: key="/org/gnome/desktop/interface/clock-show-seconds" value="true"
-  become: no
+  dconf: 
+    key: "/org/gnome/desktop/interface/clock-show-seconds"
+    value: "true"
+
+- name: Set Terminal Font
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
+    value: "'Source Code Pro Light 12'"
+
+- name: Set Interface Font
+  dconf: 
+    key: "/org/gnome/desktop/interface/font-name"
+    value: "'Source Code Pro, Light'"
+
+- name: Set Document Font
+  dconf: 
+    key: "/org/gnome/desktop/interface/document-font-name"
+    value: "'Source Code Pro'"
+
+- name: Set Monospace Font
+  dconf: 
+    key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'Source Code Pro, Medium'"
+
+- name: Set Legacy Title Font
+  dconf: 
+    key: "/org/gnome/desktop/wm/preferences/titlebar-font"
+    value: "'Source Code Pro, Semibold'"
+
+- name: never blank screen
+  dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "uint32 0"
+
+- name: inactive timeout
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+    value: "'nothing'"
+
+- name: inactive timeout on battery
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
+    value: "'nothing'"
+
+- name: show battery percentage
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
+- name: ignore lid close
+  become: true
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: '^HandleLidSwitch='
+    insertafter: '^#HandleLidSwitch='
+    line: 'HandleLidSwitch=ignore'

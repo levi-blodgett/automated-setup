@@ -19,6 +19,7 @@
       - role: setup-font
       - role: setup-dns
       - role: setup-gnome
+        become: no
       - role: setup-google-drive
       - role: setup-sublime
         sublime_package_control: true

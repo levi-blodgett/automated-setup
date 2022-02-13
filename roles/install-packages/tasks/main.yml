@@ -1,5 +1,5 @@
 ---
-- name: apt install packages
+- name: apt install
   apt:
     pkg:
     # for almost everything
@@ -75,11 +75,11 @@
     # Install new desktop theme
     - arc-theme
 
-- name: Install packages via snap
+- name: snap install
   snap:
     name: 
       - glimpse-editor
       - vlc
 
-- name: Add auto-updates to root cron
-  shell: "(crontab -u $(whoami) -l; echo '45 21 * * * root apt-get update > /home/root/updates.log' ) | crontab -u $(whoami) -"
+- name: ubuntu-drivers install
+  shell: "ubuntu-drivers autoinstall"

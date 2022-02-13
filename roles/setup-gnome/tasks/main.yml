@@ -12,12 +12,12 @@
 - name: Copy lockscreen file
   copy: 
     src: "files/lockscreen.jpg"
-    dest: "/home/{{ username }}/.lockscreen.jpg"
+    dest: "/home/{{ username }}/.black.jpg"
 
 - name: Set lock screen background
   dconf: 
     key: "/org/gnome/desktop/screensaver/picture-uri" 
-    value: "'file:///home/{{ username }}/.lockscreen.jpg'"
+    value: "'file:///home/{{ username }}/.black.jpg'"
 
 - name: Verify profile picture
   stat:
@@ -51,7 +51,7 @@
     mode: '0755'
 
 - name: Set login screen background
-  shell: "/home/{{ username }}/Downloads/change-gdm-background files/wallpaper.jpg"
+  shell: "/home/{{ username }}/Downloads/change-gdm-background {{ role_path }}/files/black.jpg"
   become: yes
   register: login_results
 

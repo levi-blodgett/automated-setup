@@ -23,42 +23,61 @@
   dconf: key="/com/ubuntu/login-screen/background-color" value="'black'"
   become: no
 
-- name: Set GTK theme
+- name: Set GTK Theme
   dconf: key="/org/gnome/desktop/interface/gtk-theme" value="'Arc-Dark'"
   become: no
 
-- name: Set Cursor theme
+- name: Set Cursor Theme
   dconf: key="/org/gnome/desktop/interface/cursor-theme" value="'Arc-Dark'"
   become: no
 
-- name: Set GTK color scheme
+- name: Set GTK Color Scheme
   dconf: key="/org/gnome/desktop/interface/gtk-color-scheme" value="'Arc-Dark'"
   become: no
 
-- name: Set icon theme
-  dconf: key="/org/gnome/desktop/interface/icon-theme" value="'Arc'"
+- name: Set Icon Theme
+  dconf: key="/org/gnome/desktop/interface/icon-theme" value="'Yaru'"
   become: no
 
-- name: Set sound theme
+- name: Set Sound Theme
   dconf: key="/org/gnome/desktop/sound/theme-name" value="'Arc-Dark'"
   become: no
 
 - name: Hide trash icon
-  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-trash" value="'false'"
+  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-trash" value="false"
   become: no
 
 - name: Hide home icon
-  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-home" value="'false'"
+  dconf: key="/org/gnome/shell/extensions/desktop-icons/show-home" value="false"
   become: no
 
 - name: Isolate workspaces
-  dconf: key="/org/gnome/shell/extensions/dask-to-dock/isolate-workspaces" value="'true'"
+  dconf: key="/org/gnome/shell/extensions/dask-to-dock/isolate-workspaces" value="true"
   become: no
  
 - name: Workspaces apply to all monitors
-  dconf: key="/org/gnome/shell/overrides/workspaces-only-on-primary" value="'false'"
+  dconf: key="/org/gnome/shell/overrides/workspaces-only-on-primary" value="false"
+  become: no
+
+- name: Hide 'Show apps button'
+  dconf: key="/org/gnome/shell/extensions/dash-to-dock/show-show-apps-button" value="false"
+  become: no
+
+- name: Center dock
+  dconf: key="/org/gnome/shell/extensions/dash-to-dock/extend-height" value="false"
+  become: no
+
+# TODO: get this shit to work
+- name: Set favorite apps
+  dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop',          'sublime_text.desktop', 'pinta.desktop', 'steam.desktop']"
+  become: no
+
+- name: Hide dock as default
+  dconf: key="/org/gnome/shell/extensions/dash-to-dock/dock-fixed" value="false"
   become: no
 
 - name: Set Clock to show seconds
-  dconf: key="/org/gnome/desktop/interface/clock-show-seconds" value="'true'"
+  dconf: key="/org/gnome/desktop/interface/clock-show-seconds" value="true"
   become: no

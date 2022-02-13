@@ -55,10 +55,6 @@
   become: yes
   register: login_results
 
-- name: Display results
-  debug:
-    msg: "{{ login_results }}"
-
 - name: Set GTK Theme
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme"
@@ -129,6 +125,31 @@
     key: "/org/gnome/desktop/interface/clock-show-seconds"
     value: "true"
 
+- name: Disable Terminal bell
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/audible-bell"
+    value: "false"
+
+- name: Set Terminal as transparent
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background"
+    value: "true"
+
+- name: Set Terminal transparency percentage
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent"
+    value: "15"
+
+- name: Set Terminal bold text as bright
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/bold-is-bright"
+    value: "true"
+
+- name: Set Terminal scrollback lines
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollback-lines"
+    value: "10000000"
+
 - name: Set Terminal Font
   dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
@@ -180,12 +201,4 @@
     regexp: '^HandleLidSwitch='
     insertafter: '^#HandleLidSwitch='
     line: 'HandleLidSwitch=ignore'
-  become: yes
-
-- name: Get screen brightness level
-  shell: "cat /sys/class/backlight/intel_backlight/brightness"
-  register: initial_brightness
-
-- name: Set screen brightness level
-  shell: "echo {{ (initial_brightness.stdout|int / 6)|int }} > /sys/class/backlight/intel_backlight/brightness"
   become: yes

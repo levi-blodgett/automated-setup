@@ -1,13 +1,13 @@
 ---
 - name: Check if Source Code Pro is already installed
   stat:
-    path: /home/{{ username }}/.local/share/fonts/SourceCodePro-Regular.otf
+    path: "/home/{{ username }}/.local/share/fonts/SourceCodePro-Regular.otf"
   register: installed
 
 - name: Download Source Code Pro
   get_url:
-    url: https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
-    dest: /home/{{ username }}/Downloads/1.050R-it.zip
+    url: "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip"
+    dest: "/home/{{ username }}/Downloads/1.050R-it.zip"
     mode: '0440'
     force: no
   become: no
@@ -15,21 +15,21 @@
 
 - name: Unzip package
   unarchive:
-    src: /home/{{ username }}/Downloads/1.050R-it.zip
-    dest: /home/{{ username }}/Downloads/
+    src: "/home/{{ username }}/Downloads/1.050R-it.zip"
+    dest: "/home/{{ username }}/Downloads/"
   become: no
   when: not installed.stat.exists
 
 - name: Make font directory if it doesn't exist
   file:
-    path: /home/{{ username }}/.local/share/fonts
+    path: "/home/{{ username }}/.local/share/fonts"
     state: directory
   when: not installed.stat.exists
 
 - name: Copy font to font directory
   copy:
     src: "{{ item }}"
-    dest: /home/{{ username }}/.local/share/fonts/
+    dest: "/home/{{ username }}/.local/share/fonts/"
     mode: '0644'
   with_fileglob:
     - "/home/{{ username }}/Downloads/source-code-pro-2.030R-ro-1.050R-it/OTF/*.otf"
@@ -37,3 +37,4 @@
 
 - name: Reload cache
   shell: "fc-cache -f -v"
+  when: not installed.stat.exists

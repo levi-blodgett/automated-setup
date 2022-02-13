@@ -13,14 +13,13 @@
     - role: add-repositories
     - role: update
     - role: install-packages
-    - role: fix-ubuntu-suspend
+    - role: install-drivers
+    - role: setup-firefox
     - role: setup-fonts
     - role: setup-dns
+    - role: setup-google-drive
     - role: setup-gnome
       become: no
-    - role: setup-google-drive
-    - role: setup-sublime
-      sublime_package_control: true
     - role: setup-tmux
       vars:
         tmux_config:

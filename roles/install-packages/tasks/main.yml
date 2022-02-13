@@ -80,6 +80,3 @@
     name: 
       - glimpse-editor
       - vlc
-
-- name: ubuntu-drivers install
-  shell: "ubuntu-drivers autoinstall"

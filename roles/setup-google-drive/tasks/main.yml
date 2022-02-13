@@ -4,14 +4,13 @@
 
 - name: Install Dune
   shell: "dune install"
-  become: yes
 
 - name: Login to Google Drive
   shell: "google-drive-ocamlfuse"
   become: no
 
 - name: Create Google Drive directory if it does not exist
-  ansible.builtin.file:
+  file:
     path: $HOME/gdrive
     state: directory
     mode: '0755'

@@ -8,25 +8,15 @@
   shell: "echo /home/{{ username }}/.mozilla/firefox/75u792nw.default-release/prefs.js"
   register: mozilla_prefs_path
 
-- name: Check for gfx hardware acceleration
-  shell: "grep -c '^gfx.webrender' {{ mozilla_prefs_path.stdout }} || true"
-  register: gfx_grep
-
 - name: Enable gfx hardware acceleration
   lineinfile:
     dest: "{{ mozilla_prefs_path.stdout }}"
     line: 'user_pref("gfx.webrender.all", true);'
-  when: gfx_grep.stdout == "0"
-
-- name: Check for layers hardware acceleration
-  shell: "grep -c '^layers.acceleration' {{ mozilla_prefs_path.stdout }} || true"
-  register: layers_grep
 
 - name: Enable layers hardware acceleration
   lineinfile:
     dest: "{{ mozilla_prefs_path.stdout }}"
     line: 'user_pref("layers.acceleration.force-enabled", true);'
-  when: layers_grep.stdout == "0"
 
 - name: Download extensions
   get_url:
@@ -48,3 +38,19 @@
     mode: '0644'
     remote_src: yes
   with_items: "{{ firefox_extensions }}"
+
+#  "CookieAutoDelete@kennydo.com","enabled":false}]}
+#  (.+)$
+- name: Enable extensions
+  replace:
+    path: "/home/{{ username }}/.mozilla/firefox/75u792nw.default-release/extension-settings.json"
+    after: '{{ item.id }}","enabled":'
+    before: '}]}'
+    regexp: 'false'
+    replace: 'true'
+  with_items: "{{ firefox_extensions }}"
+
+- name: Enable dark mode
+  lineinfile:
+    dest: "{{ mozilla_prefs_path.stdout }}"
+    line: 'user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");'

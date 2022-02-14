@@ -112,7 +112,7 @@
 - name: Set favorite apps
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'sublime_text.desktop', 'pinta.desktop', 'steam.desktop']"
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'libreoffice-writer.desktop', 'sublime_text.desktop', 'pinta.desktop', 'steam.desktop']"
 
 - name: Hide dock as default
   dconf: 

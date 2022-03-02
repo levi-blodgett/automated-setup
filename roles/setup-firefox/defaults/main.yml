@@ -1,9 +1,10 @@
 ---
 firefox_extensions:
- - name: "ClearURL"
-   id: "{74145f27-f039-47ce-a470-a662b129930a}"
-   mode: "force_installed"
-   url: "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
+# doesn't work because of the id I believe
+# - name: "ClearURL"
+#   id: "{74145f27-f039-47ce-a470-a662b129930a}"
+#   mode: "force_installed"
+#   url: "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
  - name: "uBlock_Origin"
    id: "uBlock0@raymondhill.net"
    mode: "force_installed"

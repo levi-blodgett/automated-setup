@@ -1,21 +1,16 @@
 ---
-# add two lines to mozilla profile's prefs.js if not there: 
-# user_pref("gfx.webrender.all", true);
-# user_pref("layers.acceleration.force-enabled", true);
-# /home/{{ username }}/.mozilla/firefox/75u792nw.default-release/prefs.js
-
 - name: Set path
-  shell: "echo /home/{{ username }}/.mozilla/firefox/75u792nw.default-release/prefs.js"
-  register: mozilla_prefs_path
+  shell: "echo /home/{{ username }}/.mozilla/firefox/*.default-release"
+  register: mozilla_path
 
 - name: Enable gfx hardware acceleration
   lineinfile:
-    dest: "{{ mozilla_prefs_path.stdout }}"
+    dest: "{{ mozilla_path.stdout }}/prefs.js"
     line: 'user_pref("gfx.webrender.all", true);'
 
 - name: Enable layers hardware acceleration
   lineinfile:
-    dest: "{{ mozilla_prefs_path.stdout }}"
+    dest: "{{ mozilla_path.stdout }}/prefs.js"
     line: 'user_pref("layers.acceleration.force-enabled", true);'
 
 - name: Download extensions
@@ -38,19 +33,3 @@
     mode: '0644'
     remote_src: yes
   with_items: "{{ firefox_extensions }}"
-
-#  "CookieAutoDelete@kennydo.com","enabled":false}]}
-#  (.+)$
-- name: Enable extensions
-  replace:
-    path: "/home/{{ username }}/.mozilla/firefox/75u792nw.default-release/extension-settings.json"
-    after: '{{ item.id }}","enabled":'
-    before: '}]}'
-    regexp: 'false'
-    replace: 'true'
-  with_items: "{{ firefox_extensions }}"
-
-- name: Enable dark mode
-  lineinfile:
-    dest: "{{ mozilla_prefs_path.stdout }}"
-    line: 'user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");'

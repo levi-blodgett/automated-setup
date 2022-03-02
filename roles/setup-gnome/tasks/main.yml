@@ -40,7 +40,7 @@
 
 - name: Download script for changing login background
   get_url: 
-    url: "https://github.com/thiggy01/change-gdm-background/raw/master/change-gdm-background"
+    url: "https://github.com/levi-blodgett/change-gdm-background/raw/master/change-gdm-background"
     dest: "/home/{{ username }}/Downloads/"
 
 - name: Make script executable
@@ -79,14 +79,19 @@
     key: "/org/gnome/desktop/sound/theme-name"
     value: "'Arc-Dark'"
 
-- name: Hide trash icon
+- name: Desktop - Hide trash icon
   dconf: 
     key: "/org/gnome/shell/extensions/desktop-icons/show-trash"
     value: "false"
 
-- name: Hide home icon
+- name: Desktop - Hide home icon
   dconf: 
     key: "/org/gnome/shell/extensions/desktop-icons/show-home"
+    value: "false"
+
+- name: Dock - Hide trash icon
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-trash"
     value: "false"
 
 - name: Isolate workspaces
@@ -112,7 +117,7 @@
 - name: Set favorite apps
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'libreoffice-writer.desktop', 'sublime_text.desktop', 'pinta.desktop', 'steam.desktop']"
+    value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'libreoffice-writer.desktop', 'org.gnome.gedit.desktop', 'pinta.desktop', 'steam.desktop', 'org.gnome.Screenshot.desktop']"
 
 - name: Hide dock as default
   dconf: 

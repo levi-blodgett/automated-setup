@@ -6,6 +6,8 @@
     - python
     # for replacing wallpaper later
     - python-psutil
+    # for cloning repos, dev work
+    - git
     # resource monitoring program
     - htop
     # terminal text editor
@@ -32,8 +34,6 @@
     - synaptic
     # kernel installer/updater
     - mainline
-    # screenshot tool
-    - flameshot
     # gnome customization
     - dconf-editor
     # require for changed login splash screen
@@ -78,5 +78,14 @@
 - name: snap install
   snap:
     name: 
+      # photo editor
       - glimpse-editor
+      # media player
       - vlc
+      # voice comms for gaming, socializing
+      - discord
+
+- name: pip install
+  pip:
+    name:
+      - psutil

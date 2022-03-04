@@ -4,6 +4,8 @@
     pkg:
     # for almost everything
     - python
+    # install pip
+    - python3-pip
     # for replacing wallpaper later
     - python-psutil
     # for cloning repos, dev work
@@ -47,10 +49,6 @@
     - ocaml-nox
     # sublime dependency
     - apt-transport-https
-    # sublime has it's own role
-    #- sublime-text
-    # tmux has it's own role
-    #- tmux
     # unattended-upgrades for crontab, might not need later if this is idempotent
     - unattended-upgrades
     # zip package for .zip files

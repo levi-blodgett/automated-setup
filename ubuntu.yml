@@ -14,6 +14,7 @@
     - role: update
     - role: install-packages
     - role: install-drivers
+    - role: setup-vscode
     - role: setup-firefox
     - role: setup-fonts
     - role: setup-dns

@@ -47,7 +47,7 @@
     # dependencies for google-drive-ocamlfuse
     - ocaml-dune
     - ocaml-nox
-    # sublime dependency
+    # vscode dependency
     - apt-transport-https
     # unattended-upgrades for crontab, might not need later if this is idempotent
     - unattended-upgrades
@@ -73,6 +73,12 @@
     # Install new desktop theme
     - arc-theme
 
+- name: download docker script
+  shell: curl -fsSL https://get.docker.com -o /home/{{ username }}/get-docker.sh
+
+- name: install docker
+  shell: sh /home/{{ username }}/get-docker.sh
+
 - name: snap install
   snap:
     name: 
@@ -87,3 +93,5 @@
   pip:
     name:
       - psutil
+      - molecule
+      - ansible-core

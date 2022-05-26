@@ -2,3 +2,16 @@
 - name: Make user a sudoer
   shell: "usermod -aG sudo $USER"
   become: yes
+
+- name: Replace bash files
+  copy:
+    src: "files/bash_files/"
+    dest: "/home/{{ username }}/"
+    directory_mode:
+  tags:
+    - dircontent
+
+- name: Overwrite ansible configuration
+  copy:
+    src: "files/ansible.cfg"
+    dest: "/etc/ansible/"

@@ -95,3 +95,4 @@
       - psutil
       - molecule
       - ansible-core
+      - flake8

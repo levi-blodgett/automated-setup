@@ -29,6 +29,7 @@
               commands:
                 - "set": "-g @plugin 'tmux-plugins/tpm'"
                   "set-option": "-g @plugin 'tmux-plugins/tmux-sensible'"
+    - role: setup-user
     - role: update
     - role: clean
     - role: notify-reboot

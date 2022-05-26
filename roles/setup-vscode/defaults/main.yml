@@ -1,6 +1,6 @@
 ---
 # Visual Studio Code version number (defaults to the latest version)
-visual_studio_code_version: ''
+visual_studio_code_version: ""
 
 # Build (either 'stable' or 'insiders') https://code.visualstudio.com/insiders/
 # Ubuntu only (code-insiders isn't in Microsoft's RPM repo)
@@ -12,7 +12,7 @@ visual_studio_code_download_dir: "{{ x_ansible_download_dir | default(ansible_en
 # Mirror server for fetching the public keys and the Visual Studio Code
 # installation package. The URL may include directories. The URL must not end
 # with a trailing slash.
-visual_studio_code_mirror: 'https://packages.microsoft.com'
+visual_studio_code_mirror: "https://packages.microsoft.com"
 
 # should the gpgcheck of the repo enabled?
 # if yes
@@ -20,7 +20,7 @@ visual_studio_code_mirror: 'https://packages.microsoft.com'
 # - for dnf/yum the option gpgcheck is set to yes
 # - for zypper the option gpgcheck is set to 1
 # yes is the default
-# if no 
+# if no
 # - for apt repo the option trusted=yes is added to repo definition
 # - for dnf/yum the option gpgcheck is set to no
 # - for zypper the option gpgcheck is set to 0
@@ -32,17 +32,66 @@ visual_studio_code_gpgcheck: yes
 visual_studio_code_skip_add_repo: no
 
 # Users to install extensions for and/or write settings.json
-users: 
+users:
   - username: "{{ username }}"
     visual_studio_code_extensions:
       - streetsidesoftware.code-spell-checker
       - wholroyd.jinja
       - ms-python.python
+      - wallabyjs.quokka-vscode
+      - formulahendry.auto-rename-tag
+      - eamodio.gitlens
+      - ms-vscode-remote.remote-ssh
+      - ms-vscode-remote.remote-containers
+      - quicktype.quicktype
+      - tabnine.tabnine-vscode
+      - ritwickdey.liveserver
+      - esbenp.prettier-vscode
+      - humao.rest-client
+      - njpwerner.autodocstring
+      - kevinrose.vsc-python-indent
+      - formulahendry.code-runner
+      - sdras.night-owl
+      - oderwat.indent-rainbow
+      - pflannery.vscode-versionlens
+      - wix.vscode-import-cost
+      - firefox-devtools.vscode-firefox-debug
+      - adpyke.codesnap
+      - wayou.vscode-todo-highlight
+      - stateful.marquee
+      - softwaredotcom.swdc-vscode
+      - dsznajder.es7-react-js-snippets
+      - pkief.material-icon-theme
     visual_studio_code_settings_overwrite: yes
-    visual_studio_code_settings: {
-      "editor.rulers": [80, 100, 120],
-      "editor.renderWhitespace": true,
-      "files.associations": {
-        "Vagrantfile": "ruby"
+    visual_studio_code_settings:
+      {
+        "editor.rulers": [80, 100, 120],
+        "editor.fontSize": 25,
+        "editor.wordWrap": "on",
+        "editor.lineNumbers": "on",
+        "editor.codeLens": false,
+        "editor.folding": false,
+        "editor.glyphMargin": false,
+        "editor.formatOnSave": true,
+        "editor.hover.enabled": true,
+        "editor.fontFamily": "Fira Code",
+        "editor.fontLigatures": true,
+        "editor.minimap.enabled": true,
+        "editor.cursorBlinking": "blink",
+        "editor.renderWhitespace": "none",
+        "editor.suggestSelection": "first",
+        "editor.guides.indentation": false,
+        "editor.renderControlCharacters": false,
+        "editor.cursorSmoothCaretAnimation": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+        "editor.renderLineHighlight": "all",
+        "breadcrumbs.enabled": true,
+        "explorer.compactFolders": false,
+        "files.associations": { "Vagrantfile": "ruby" },
+        "files.trimTrailingWhitespace": true,
+        "files.exclude":
+          { "**/node_modules": true, "**/package-lock.json": true },
+        "workbench.iconTheme": "material-icon-theme",
+        "workbench.colorTheme": "Night Owl (No Italics)",
       }
-    }

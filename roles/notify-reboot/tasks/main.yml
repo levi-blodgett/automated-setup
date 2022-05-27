@@ -1,4 +1,4 @@
 ---
 - name: Notify user to manually reboot
   debug:
-    msg: "Reboot now."
+    msg: "Please reboot when able to finalize any changes."

@@ -26,6 +26,9 @@ Automating my personal setup on my PC.
 - Downloads, installs, and sets favorite font as primary in various environments
 - Sets up Gnome GUI
 - Links Google Drive to local PC using FUSE
+- Sets up bash aliases, functions, .bashrc, and bash prompt
 - Sets up TMUX env
 - Sets up VIM env
 - Sets up VS Code env
+- Notifies user to reboot when able
+- Sets a cron job to run when rebooted, setting and updating the system again

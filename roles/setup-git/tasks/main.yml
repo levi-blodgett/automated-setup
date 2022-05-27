@@ -1,7 +1,0 @@
----
-# setup git with prompts
-- name: set git username
-  shell: {{ git_username }}
-
-- name: set git email
-  shell: {{ git_email }} 

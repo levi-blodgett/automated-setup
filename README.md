@@ -11,8 +11,8 @@ Automating my personal setup on my PC.
    _sudo apt install ansible-core_
 4. Clone this repo <br />
    _git clone git@github.com:levi-blodgett/automated-setup.git_
-5. Run this playbook
-_ansible-playbook -K -e 'username=$USER' ~/ansible/setup_ubuntu_environment.yml_
+5. Run this playbook <br />
+   _ansible-playbook -K -e 'username=$USER' ~/ansible/setup_ubuntu_environment.yml_
 
 ## Summary of roles
 

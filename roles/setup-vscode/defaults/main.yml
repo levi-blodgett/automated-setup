@@ -95,4 +95,5 @@ users:
           { "**/node_modules": true, "**/package-lock.json": true },
         "workbench.iconTheme": "material-icon-theme",
         "workbench.colorTheme": "Night Owl (No Italics)",
+        "marquee.configuration.name": "Levi!",
       }

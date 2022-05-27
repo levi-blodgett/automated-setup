@@ -12,7 +12,7 @@ Automating my personal setup on my PC.
 4. Clone this repo <br />
    _git clone git@github.com:levi-blodgett/automated-setup.git ~/_
 5. Run this playbook <br />
-   _ansible-playbook -K -e 'username=$USER' ~/setup_ubuntu_environment.yml_
+   _ansible-playbook -K -e 'username=$USER' ~/automated-setup/setup_ubuntu_environment.yml_
 
 ## Summary of roles
 

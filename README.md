@@ -4,8 +4,13 @@ Automating my personal setup on my PC.
 
 ## Before using
 
-You will need to install Ubuntu, then install Ansible, clone this repo, and make your user a sudoer using: <br />
+1. Install Ubuntu <br />
+2. Make your user a sudoer using: <br />
 _usermod -aG sudo $USER_
+3. Install Ansible <br />
+_sudo apt install ansible-core_
+4. Clone this repo <br />
+_git clone git@github.com:levi-blodgett/automated-setup.git_
 
 ## How to use
 

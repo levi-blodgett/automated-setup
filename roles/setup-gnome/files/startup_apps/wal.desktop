@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=wal -R
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Match terminal colors to background
+Name=Match terminal colors to background
+Comment[en_US]=Match terminal colors to background
+Comment=Match terminal colors to background

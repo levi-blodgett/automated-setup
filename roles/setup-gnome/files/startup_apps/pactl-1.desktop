@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/levi/startup_scripts/output.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Set default output
+Name=Headphones
+Comment[en_US]=Set headphones as default output
+Comment=Set headphones as default output

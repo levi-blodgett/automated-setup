@@ -1,40 +1,61 @@
 ---
+- name: Make font directory if it doesn't exist
+  file:
+    path: "/home/{{ username }}/.local/share/fonts"
+    state: directory
+
+- name: Check if Fira Code is already installed
+  stat:
+    path: "/home/{{ username }}/.local/share/fonts/FiraCode-Regular.ttf"
+  register: fira_code_installed
+
+- name: Download Fira Code
+  get_url:
+    url: "https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip"
+    dest: "/home/{{ username }}/Downloads/Fira_Code_v6.2.zip"
+    mode: "0440"
+    force: no
+  become: no
+  when: not fira_code_installed.stat.exists
+
+- name: Unzip package
+  unarchive:
+    src: "/home/{{ username }}/Downloads/Fira_Code_v6.2.zip"
+    dest: "/home/{{ username }}/Downloads/"
+  become: no
+  when: not fira_code_installed.stat.exists
+
 - name: Check if Source Code Pro is already installed
   stat:
     path: "/home/{{ username }}/.local/share/fonts/SourceCodePro-Regular.otf"
-  register: installed
+  register: source_code_installed
 
 - name: Download Source Code Pro
   get_url:
     url: "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip"
     dest: "/home/{{ username }}/Downloads/1.050R-it.zip"
-    mode: '0440'
+    mode: "0440"
     force: no
   become: no
-  when: not installed.stat.exists
+  when: not source_code_installed.stat.exists
 
 - name: Unzip package
   unarchive:
     src: "/home/{{ username }}/Downloads/1.050R-it.zip"
     dest: "/home/{{ username }}/Downloads/"
   become: no
-  when: not installed.stat.exists
-
-- name: Make font directory if it doesn't exist
-  file:
-    path: "/home/{{ username }}/.local/share/fonts"
-    state: directory
-  when: not installed.stat.exists
+  when: not source_code_installed.stat.exists
 
 - name: Copy font to font directory
   copy:
     src: "{{ item }}"
     dest: "/home/{{ username }}/.local/share/fonts/"
-    mode: '0644'
+    mode: "0644"
   with_fileglob:
     - "/home/{{ username }}/Downloads/source-code-pro-2.030R-ro-1.050R-it/OTF/*.otf"
-  when: not installed.stat.exists
+    - "/home/{{ username }}/Downloads/ttf/*.ttf"
+  when: not fira_code_installed.stat.exists and source_code_installed.stat.exists
 
 - name: Reload cache
   shell: "fc-cache -f -v"
-  when: not installed.stat.exists
+  when: not fira_code_installed.stat.exists and source_code_installed.stat.exists

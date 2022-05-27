@@ -1,0 +1,8 @@
+---
+- name: Make sure keybindings are set
+  copy:
+    src: "files/"
+    dest: "/home/{{ username }}/.config/Code/User/"
+    directory_mode:
+  tags:
+    - dircontent

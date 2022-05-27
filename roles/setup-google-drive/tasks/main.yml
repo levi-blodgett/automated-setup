@@ -1,21 +1,38 @@
 ---
-- name: Build Dune
-  shell: "dune build @install"
-
-- name: Install Dune
-  shell: "dune install"
-
-- name: Login to Google Drive
-  shell: "google-drive-ocamlfuse"
+- name: Check if Google Drive directory exists
+  stat:
+    path: "home/{{ username }}/gdrive"
   become: no
+  register: directory_results
 
 - name: Create Google Drive directory if it does not exist
   file:
-    path: $HOME/gdrive
+    path: "home/{{ username }}/gdrive"
     state: directory
-    mode: '0755'
+    mode: "0755"
+  become: no
+  when: directory_results.stat.exists == false
+
+- name: Check if directory is empty
+  shell: "ls /home/{{ username }}/gdrive/"
+  changed_when: false
+  become: no
+  register: gdrive_results
+
+- name: Build Dune
+  shell: "dune build @install"
+  when: gdrive_results.stdout == ""
+
+- name: Install Dune
+  shell: "dune install"
+  when: gdrive_results.stdout == ""
+
+- name: Login to Google Drive
+  shell: "google-drive-ocamlfuse"
+  when: gdrive_results.stdout == ""
   become: no
 
 - name: Link Google Drive to ~/gdrive
   shell: "google-drive-ocamlfuse $HOME/gdrive"
+  when: gdrive_results.stdout == ""
   become: no

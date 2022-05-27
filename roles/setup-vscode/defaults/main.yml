@@ -76,6 +76,7 @@ users:
         "editor.hover.enabled": true,
         "editor.fontFamily": "Fira Code",
         "editor.fontLigatures": true,
+        "editor.letterSpacing": -0.15,
         "editor.minimap.enabled": true,
         "editor.cursorBlinking": "blink",
         "editor.renderWhitespace": "none",

@@ -19,17 +19,21 @@
     - role: setup-fonts
     - role: setup-dns
     - role: setup-google-drive
+    - role: setup-cron
+      become: no
+    - role: setup-user
+      become: no
+    - role: setup-vim
+      become: no
     - role: setup-gnome
       become: no
     - role: setup-tmux
       vars:
         tmux_config:
           global:
-            - comment: "Add sensible to list of TPM plugins"
-              commands:
+            - commands:
                 - "set": "-g @plugin 'tmux-plugins/tpm'"
                   "set-option": "-g @plugin 'tmux-plugins/tmux-sensible'"
-    - role: setup-user
     - role: update
     - role: clean
     - role: notify-reboot

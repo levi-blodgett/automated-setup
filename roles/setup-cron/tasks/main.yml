@@ -1,0 +1,6 @@
+---
+- name: Create setup_environment cronjob
+  ansible.builtin.cron:
+    name: "Run setup on reboot"
+    special_time: reboot
+    job: "setup"

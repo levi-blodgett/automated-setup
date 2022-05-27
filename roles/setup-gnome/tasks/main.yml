@@ -1,22 +1,22 @@
 ---
 - name: Copy wallpaper file
-  copy: 
+  copy:
     src: "files/wallpaper.jpg"
     dest: "/home/{{ username }}/.wallpaper.jpg"
 
 - name: Set Wallpaper
-  dconf: 
-    key: "/org/gnome/desktop/background/picture-uri" 
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
     value: "'file:///home/{{ username }}/.wallpaper.jpg'"
 
 - name: Copy lockscreen file
-  copy: 
+  copy:
     src: "files/lockscreen.jpg"
     dest: "/home/{{ username }}/.black.jpg"
 
 - name: Set lock screen background
-  dconf: 
-    key: "/org/gnome/desktop/screensaver/picture-uri" 
+  dconf:
+    key: "/org/gnome/desktop/screensaver/picture-uri"
     value: "'file:///home/{{ username }}/.black.jpg'"
 
 - name: Verify profile picture
@@ -34,12 +34,12 @@
 - name: Set profile picture
   lineinfile:
     path: "/var/lib/AccountsService/users/{{ username }}"
-    regexp: '^Icon='
-    line: 'Icon=/var/lib/AccountsService/icons/{{ username }}'
+    regexp: "^Icon="
+    line: "Icon=/var/lib/AccountsService/icons/{{ username }}"
   become: yes
 
 - name: Download script for changing login background
-  get_url: 
+  get_url:
     url: "https://github.com/levi-blodgett/change-gdm-background/raw/master/change-gdm-background"
     dest: "/home/{{ username }}/Downloads/"
 
@@ -48,44 +48,45 @@
     path: "/home/{{ username }}/Downloads/change-gdm-background"
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: '0755'
+    mode: "0755"
 
-- name: Set login screen background
+- name: Set/Reload login screen background
   shell: "/home/{{ username }}/Downloads/change-gdm-background {{ role_path }}/files/lockscreen.jpg"
   become: yes
+  changed_when: false
 
 - name: Set GTK Theme
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
     value: "'Arc-Dark'"
 
 - name: Set Cursor Theme
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/cursor-theme"
     value: "'Arc-Dark'"
 
 - name: Set GTK Color Scheme
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/gtk-color-scheme"
     value: "'Arc-Dark'"
 
 - name: Set Icon Theme
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
     value: "'Yaru'"
 
 - name: Set Sound Theme
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/sound/theme-name"
     value: "'Arc-Dark'"
 
 - name: Desktop - Hide trash icon
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/extensions/desktop-icons/show-trash"
     value: "false"
 
 - name: Desktop - Hide home icon
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/extensions/desktop-icons/show-home"
     value: "false"
 
@@ -95,22 +96,22 @@
     value: "false"
 
 - name: Isolate workspaces
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/extensions/dask-to-dock/isolate-workspaces"
     value: "true"
- 
+
 - name: Workspaces apply to all monitors
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/overrides/workspaces-only-on-primary"
     value: "false"
 
 - name: Hide 'Show apps button'
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/show-show-apps-button"
     value: "false"
 
 - name: Center dock
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/extend-height"
     value: "false"
 
@@ -120,12 +121,12 @@
     value: "['firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Screenshot.desktop', 'code.desktop', 'org.gnome.gedit.desktop', 'libreoffice-writer.desktop', 'pinta.desktop', 'steam.desktop', 'discord_discord.desktop']"
 
 - name: Hide dock as default
-  dconf: 
+  dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-fixed"
     value: "false"
 
 - name: Set Clock to show seconds
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/clock-show-seconds"
     value: "true"
 
@@ -157,25 +158,33 @@
 - name: Set Terminal Font
   dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
-    value: "'Source Code Pro Light 12'"
+    value: "'Fira Code Light 14'"
+
+- name: Set Terminal colors
+  copy:
+    src: "files/startup_apps/"
+    dest: "/home/{{ username }}/.config/autostart/"
+    directory_mode:
+  tags:
+    - dircontent
 
 - name: Set Interface Font
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/font-name"
     value: "'Source Code Pro, Light'"
 
 - name: Set Document Font
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/document-font-name"
     value: "'Source Code Pro'"
 
 - name: Set Monospace Font
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/interface/monospace-font-name"
     value: "'Source Code Pro, Medium'"
 
 - name: Set Legacy Title Font
-  dconf: 
+  dconf:
     key: "/org/gnome/desktop/wm/preferences/titlebar-font"
     value: "'Source Code Pro, Semibold'"
 
@@ -202,7 +211,7 @@
 - name: ignore lid close
   lineinfile:
     path: /etc/systemd/logind.conf
-    regexp: '^HandleLidSwitch='
-    insertafter: '^#HandleLidSwitch='
-    line: 'HandleLidSwitch=ignore'
+    regexp: "^HandleLidSwitch="
+    insertafter: "^#HandleLidSwitch="
+    line: "HandleLidSwitch=ignore"
   become: yes

@@ -2,86 +2,103 @@
 - name: apt install
   apt:
     pkg:
-    # for almost everything
-    - python
-    # install pip
-    - python3-pip
-    # for replacing wallpaper later
-    - python-psutil
-    # for cloning repos, dev work
-    - git
-    # resource monitoring program
-    - htop
-    # terminal text editor
-    - vim
-    # terminal tool for locating files in filesystem via cache
-    - mlocate
-    # Virtual Machine manager
-    - virt-manager
-    # Disk Partitioner
-    - gparted
-    # Linux version of Microsoft Office Suite
-    - libreoffice
-    # libreoffice gnome dependencies
-    - libreoffice-gnome
-    # Tweaks for gnome desktop GUI
-    - gnome-tweak-tool
-    # Video game manager
-    - steam
-    # cleanup/optimization
-    - bleachbit
-    # video editor
-    - kdenlive
-    # PM for getting rid of bloat/old packages
-    - synaptic
-    # kernel installer/updater
-    - mainline
-    # gnome customization
-    - dconf-editor
-    # require for changed login splash screen
-    - libglib2.0-dev-bin
-    # tree disk usage tool
-    - k4dirstat
-    # links google drive to filesystem
-    - google-drive-ocamlfuse
-    # dependencies for google-drive-ocamlfuse
-    - ocaml-dune
-    - ocaml-nox
-    # vscode dependency
-    - apt-transport-https
-    # unattended-upgrades for crontab, might not need later if this is idempotent
-    - unattended-upgrades
-    # zip package for .zip files
-    - zip
-    # unzip package for .zip files
-    - unzip
-    # paint-like program
-    - pinta
-    # photoshop-like program
-    - gimp
-    # preloads apps, keeping them in memory
-    - preload
-    # improve laptop battery
-    - tlp 
-    - tlp-rdw
-    # enable media to work in local filesystem
-    - ubuntu-restricted-extras
-    # networking tools
-    - net-tools
-    # for setting dns servers later
-    - resolvconf
-    # Install new desktop theme
-    - arc-theme
+      # for almost everything
+      - python
+      # install pip
+      - python3-pip
+      # for replacing wallpaper later
+      - python-psutil
+      # for cloning repos, dev work
+      - git
+      # resource monitoring program
+      - htop
+      # terminal text editor
+      - vim
+      # terminal tool for locating files in filesystem via cache
+      - mlocate
+      # Virtual Machine manager
+      - virt-manager
+      # Disk Partitioner
+      - gparted
+      # Linux version of Microsoft Office Suite
+      - libreoffice
+      # libreoffice gnome dependencies
+      - libreoffice-gnome
+      # Tweaks for gnome desktop GUI
+      - gnome-tweak-tool
+      # Video game manager
+      - steam
+      # cleanup/optimization
+      - bleachbit
+      # video editor
+      - kdenlive
+      # PM for getting rid of bloat/old packages
+      - synaptic
+      # kernel installer/updater
+      - mainline
+      # gnome customization
+      - dconf-editor
+      # require for changed login splash screen
+      - libglib2.0-dev-bin
+      # tree disk usage tool
+      - k4dirstat
+      # links google drive to filesystem
+      - google-drive-ocamlfuse
+      # dependencies for google-drive-ocamlfuse
+      - ocaml-dune
+      - ocaml-nox
+      # vscode dependency
+      - apt-transport-https
+      # unattended-upgrades for crontab, might not need later if this is idempotent
+      - unattended-upgrades
+      # zip package for .zip files
+      - zip
+      # unzip package for .zip files
+      - unzip
+      # paint-like program
+      - pinta
+      # photoshop-like program
+      - gimp
+      # preloads apps, keeping them in memory
+      - preload
+      # improve laptop battery
+      - tlp
+      - tlp-rdw
+      # enable media to work in local filesystem
+      - ubuntu-restricted-extras
+      # networking tools
+      - net-tools
+      # for setting dns servers later
+      - resolvconf
+      # Install new desktop theme
+      - arc-theme
+
+- name: apt-get install
+  apt:
+    name:
+      - vim
+      - git
+      - powerline
+      - fzf
+    state: present
+    force_apt_get: yes
+
+- name: "Check if docker is installed"
+  command: dpkg-query -l docker
+  changed_when: false
+  register: docker_check
 
 - name: download docker script
   shell: curl -fsSL https://get.docker.com -o /home/{{ username }}/get-docker.sh
+  when: docker_check == false
 
 - name: install docker
   shell: sh /home/{{ username }}/get-docker.sh
+  when: docker_check == false
 
 - name: snap install
   snap:
-    name: 
+    name:
       # photo editor
       - glimpse-editor
       # media player
@@ -93,6 +110,7 @@
   pip:
     name:
       - psutil
+      - pywal
       - molecule
       - ansible-core
       - flake8

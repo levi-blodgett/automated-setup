@@ -1,8 +1,4 @@
 ---
-- name: Make user a sudoer
-  shell: "usermod -aG sudo $USER"
-  become: yes
-
 - name: Replace bash files
   copy:
     src: "files/bash_files/"

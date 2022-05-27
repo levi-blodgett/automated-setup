@@ -1,3 +1,5 @@
 ---
-- name: ubuntu-drivers install
+- name: Install ubuntu-drivers
   shell: "ubuntu-drivers autoinstall"
+  register: drivers_result
+  changed_when: '"No drivers found for installation." != drivers_result.stdout'

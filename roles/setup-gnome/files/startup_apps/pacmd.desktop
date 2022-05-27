@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/levi/startup_scripts/input.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Set default mic
+Name=Create Mono Input
+Comment[en_US]=Creates an additional mono input from mic and sets as default
+Comment=Creates an additional mono input from the mic

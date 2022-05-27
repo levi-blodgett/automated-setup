@@ -119,6 +119,15 @@ if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
+# Prompt definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_prompt, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_prompt ]; then
+    . ~/.bash_prompt
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

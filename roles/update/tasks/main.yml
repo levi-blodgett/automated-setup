@@ -2,6 +2,8 @@
 - name: apt-get update
   apt:
     update_cache: yes
+  register: updated_results
+  changed_when: '"Updated" in updated_results'
 
 - name: apt update
   apt:

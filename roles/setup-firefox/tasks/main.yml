@@ -1,6 +1,7 @@
 ---
 - name: Set path
   shell: "echo /home/{{ username }}/.mozilla/firefox/*.default-release"
+  changed_when: false
   register: mozilla_path
 
 - name: Enable gfx hardware acceleration
@@ -17,19 +18,19 @@
   get_url:
     url: "{{ item.url }}"
     dest: "/home/{{ username }}/Downloads/{{ item.name | basename }}"
-    mode: '0644'
+    mode: "0644"
   with_items: "{{ firefox_extensions }}"
 
 - name: Ensure Firefox extensions directory exists
   file:
     path: "/usr/lib/firefox-addons/extensions"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Install extensions
   copy:
     src: "/home/{{ username }}/Downloads/{{ item.name | basename }}"
     dest: "/usr/lib/firefox-addons/extensions/{{ item.id }}.xpi"
-    mode: '0644'
+    mode: "0644"
     remote_src: yes
   with_items: "{{ firefox_extensions }}"

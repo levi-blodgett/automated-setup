@@ -1,23 +1,29 @@
-# automated-setup #
-Automating my personal setup on my PC, but figured other people could also use if they wish.
+# automated-setup
 
-## Before using ##
-You will need to install ansible manually on your Ubuntu 20.04 setup, but that should be it
+Automating my personal setup on my PC.
 
-## Summary of roles ##
-* Adds code repositories for installing
-* Cleans with apt autoremove
-* Installs ubuntu/nvidia drivers
-* Installs set of packages
-* Updates cache, updates packages, upgrades packages
-* Sets up Google DNS servers on local PC
-* Sets up firefox, downloads extensions
-* Downloads, installs, and sets favorite font as primary in various environments
-* Sets up Gnome GUI customized how I enjoy
-* Links Google Drive to local PC using FUSE
-* Sets up TMUX env
-* Adds local user to SUDO grp
+## Before using
 
-### Future features to be added as roles ###
-* Adds dot files and sets them up in env
-  * Still need to implement
+You will need to install Ubuntu, then install Ansible, clone this repo, and make your user a sudoer using:
+_usermod -aG sudo $USER_
+
+## How to use
+
+ansible-playbook -K -e 'username=$USER' ~/ansible/setup_ubuntu_environment.yml
+_enter sudo password_
+
+## Summary of roles
+
+- Adds code repositories for installing
+- Cleans with apt autoremove
+- Installs ubuntu/nvidia drivers
+- Installs favorite packages
+- Updates cache, updates packages, upgrades packages
+- Sets up Google DNS servers on local PC
+- Sets up firefox, downloads extensions
+- Downloads, installs, and sets favorite font as primary in various environments
+- Sets up Gnome GUI
+- Links Google Drive to local PC using FUSE
+- Sets up TMUX env
+- Sets up VIM env
+- Sets up VS Code env

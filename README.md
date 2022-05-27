@@ -6,16 +6,15 @@ Automating my personal setup on my PC.
 
 1. Install Ubuntu <br />
 2. Make your user a sudoer using: <br />
-_usermod -aG sudo $USER_
+   _usermod -aG sudo $USER_
 3. Install Ansible <br />
-_sudo apt install ansible-core_
+   _sudo apt install ansible-core_
 4. Clone this repo <br />
-_git clone git@github.com:levi-blodgett/automated-setup.git_
+   _git clone git@github.com:levi-blodgett/automated-setup.git_
 
 ## How to use
 
-ansible-playbook -K -e 'username=$USER' ~/ansible/setup_ubuntu_environment.yml <br />
-_enter sudo password_
+ansible-playbook -K -e 'username=$USER' ~/ansible/setup_ubuntu_environment.yml
 
 ## Summary of roles
 

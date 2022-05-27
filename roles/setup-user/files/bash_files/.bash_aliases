@@ -37,6 +37,9 @@ alias svnaw="svn resolve --accept working"
 alias svnrp="svn propedit svn:log --revprop -r"
 alias svnR="svn revert --recursive ."
 
+# git
+alias gitpush="git add.; git commit -m '$1'; git push;"
+
 # ls
 alias ll='ls -alF'
 alias lr='ls -tralF'

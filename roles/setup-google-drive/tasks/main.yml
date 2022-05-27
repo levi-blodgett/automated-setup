@@ -1,13 +1,13 @@
 ---
 - name: Check if Google Drive directory exists
   stat:
-    path: "home/{{ username }}/gdrive"
+    path: "/home/{{ username }}/gdrive"
   become: no
   register: directory_results
 
 - name: Create Google Drive directory if it does not exist
   file:
-    path: "home/{{ username }}/gdrive"
+    path: "/home/{{ username }}/gdrive"
     state: directory
     mode: "0755"
   become: no
@@ -33,6 +33,6 @@
   become: no
 
 - name: Link Google Drive to ~/gdrive
-  shell: "google-drive-ocamlfuse $HOME/gdrive"
+  shell: "google-drive-ocamlfuse /home/{{ username }}/gdrive/"
   when: gdrive_results.stdout == ""
   become: no

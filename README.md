@@ -10,7 +10,7 @@ Automating my personal setup on my PC.
 3. Install Ansible and Git <br />
    _sudo apt install ansible git_
 4. Setup git
-   _Instructions: https://levi-blodgett.github.io/git-practice/_
+   _Instructions: https://levi-blodgett.github.io/git-practice/ _
 6. Clone this repo <br />
    _cd ~/; git clone git@github.com:levi-blodgett/automated-setup.git_
 5. Run this playbook <br />
